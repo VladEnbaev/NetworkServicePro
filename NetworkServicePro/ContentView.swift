@@ -11,7 +11,7 @@ struct ContentView: View {
     
     let networkService = NetworkService()
     let paths = ["one", "two", "three", "four", "five", "six", "seven", "nine", "ten"]
-    let priorities: [TaskPriority] = [.background, .high, .low, .medium]
+    let priorities: [TaskPriority] = [.background, .high, .low, .medium, .userInitiated, .utility]
     
     var body: some View {
         VStack {
@@ -23,14 +23,14 @@ struct ContentView: View {
         .padding()
         .onAppear {
             Task {
-                for path in paths {
-                    let randomDuration = Int.random(in: 50...100)
+                for i in 0...200 {
+                    let randomDuration = Int.random(in: 1...100)
                     let randomPriority = priorities.randomElement()
                     try? await Task.sleep(for: .nanoseconds(randomDuration))
-                    Task.detached(priority: randomPriority) {
-                        print("\(path): TASK_DETACHED priority: \(Task.currentPriority), interval: \(randomDuration), thread: \(Thread.current)")
-                        let data = try await networkService.request(path: path)
-                        print("Some data for \(path): \(data)")
+                    Task.detached(priority: .high) {
+                        print("\(i): TASK_DETACHED priority: \(Task.currentPriority), interval: \(randomDuration), thread: \(Thread.current)")
+                        let data = try await networkService.request(path: i.description)
+                        print("Some data for \(i): \(data)")
                     }
                 }
             }

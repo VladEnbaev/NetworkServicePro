@@ -11,21 +11,40 @@ enum NetworkError: Error {
     case nonAuthorized
 }
 
-class NetworkService {
-    private var tokenRefreshingTask: Task<Void, Error>? = nil {
-        didSet {
-            print(tokenRefreshingTask)
-            
+
+typealias BearearToken = String
+
+actor TokenRefreshingManager {
+    var tokenRefreshingTask: Task<BearearToken, Error>? = nil
+    
+    init() { }
+    
+    func createRefreshTokenTask() async {
+        tokenRefreshingTask = Task {
+            print("token: REFRESHING...")
+            let newToken = await refreshTokenRequest()
+            tokenRefreshingTask = nil
+            print("token: REFRESHING_ENDED")
+            return newToken
         }
     }
+    
+    private func refreshTokenRequest() async -> String {
+        await ServerForTest.shared.refreshToken()
+    }
+}
+
+class NetworkService {
+    var tokenManager = TokenRefreshingManager()
+    var token: BearearToken?
     
     init() { }
     
     func request(path: String) async throws -> String{
         print("\(path): REQUEST_STARTED")
-        if let tokenRefreshingTask {
+        if let tokenRefreshingTask = await tokenManager.tokenRefreshingTask {
             print("\(path): AWAITING_FOR_REFRESHING...")
-            try? await tokenRefreshingTask.value
+            token = try? await tokenRefreshingTask.value
         }
         
         do {
@@ -36,22 +55,12 @@ class NetworkService {
             guard let error = error as? NetworkError,
                     error == .nonAuthorized else { throw error }
             
-            if tokenRefreshingTask == nil {
-                print("\(path): REFRESHING_INIT")
-                tokenRefreshingTask = createTokenRefreshingTask(for: path)
+            if await tokenManager.tokenRefreshingTask == nil {
+                print("\(path) token: REFRESHING_INIT")
+                await tokenManager.createRefreshTokenTask()
             }
             
             return try await request(path: path + "/second-entry")
-        }
-    }
-    
-    private func createTokenRefreshingTask(for path: String) -> Task<Void, Error> {
-        Task {
-            print("\(path): REFRESHING...")
-            await refreshTokenRequest()
-            tokenRefreshingTask = nil
-            print("\(path): REFRESHING_ENDED")
-            return
         }
     }
     
@@ -60,10 +69,6 @@ class NetworkService {
         try await ServerForTest.shared.getData()
         print("\(path): EXECUTE_SUCCESFUL")
         return "ok"
-    }
-    
-    private func refreshTokenRequest() async {
-        try? await ServerForTest.shared.refreshToken()
     }
 }
 
@@ -78,7 +83,7 @@ actor ServerForTest {
     
     func getData() async throws {
         guard !isNeedToRefreshToken else { throw NetworkError.nonAuthorized }
-        if !hasThrownNonAuthorizedError {
+        if Int.random(in: 0...4) == 0 && !hasThrownNonAuthorizedError {
             isNeedToRefreshToken = true
             hasThrownNonAuthorizedError = true
             throw NetworkError.nonAuthorized
@@ -87,8 +92,9 @@ actor ServerForTest {
         }
     }
     
-    func refreshToken() async throws {
-        try await Task.sleep(for: .seconds(2))
+    func refreshToken() async -> BearearToken{
+        try? await Task.sleep(for: .seconds(2))
         isNeedToRefreshToken = false
+        return "Some New Token"
     }
 }
