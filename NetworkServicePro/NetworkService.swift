@@ -83,7 +83,7 @@ actor ServerForTest {
     
     func getData() async throws {
         guard !isNeedToRefreshToken else { throw NetworkError.nonAuthorized }
-        if Int.random(in: 0...4) == 0 && !hasThrownNonAuthorizedError {
+        if Int.random(in: 0...3) == 0 && !hasThrownNonAuthorizedError {
             isNeedToRefreshToken = true
             hasThrownNonAuthorizedError = true
             throw NetworkError.nonAuthorized
