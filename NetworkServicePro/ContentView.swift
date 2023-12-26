@@ -23,12 +23,12 @@ struct ContentView: View {
         .padding()
         .onAppear {
             Task {
-                for i in 0...200 {
-                    let randomDuration = Int.random(in: 50...200)
+                for i in 0...500 {
+                    let randomInterval = Int.random(in: 1...11)
                     let randomPriority = priorities.randomElement()
-                    try? await Task.sleep(for: .nanoseconds(randomDuration))
+                    try? await Task.sleep(for: .nanoseconds(randomInterval))
                     Task.detached(priority: randomPriority) {
-                        print("\(i): TASK_DETACHED priority: \(Task.currentPriority), interval: \(randomDuration), thread: \(Thread.current)")
+                        print("\(i): TASK_DETACHED priority: \(Task.currentPriority), interval: \(randomInterval), thread: \(Thread.current)")
                         let data = try await networkService.request(path: i.description)
                         print("Some data for \(i): \(data)")
                     }

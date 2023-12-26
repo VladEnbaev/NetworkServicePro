@@ -12,12 +12,7 @@ enum NetworkError: Error {
 }
 
 class NetworkService {
-    private var tokenRefreshingTask: Task<Void, Error>? = nil {
-        didSet {
-            print(tokenRefreshingTask)
-            
-        }
-    }
+    private var tokenRefreshingTask: Task<Void, Error>? = nil
     
     init() { }
     
@@ -78,7 +73,7 @@ actor ServerForTest {
     
     func getData() async throws {
         guard !isNeedToRefreshToken else { throw NetworkError.nonAuthorized }
-        if !hasThrownNonAuthorizedError {
+        if !hasThrownNonAuthorizedError && Int.random(in: 0...3) == 0{
             isNeedToRefreshToken = true
             hasThrownNonAuthorizedError = true
             throw NetworkError.nonAuthorized
