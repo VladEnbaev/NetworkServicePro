@@ -11,6 +11,7 @@
 		FF4C65F52B38908900F1511D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C65F42B38908900F1511D /* ContentView.swift */; };
 		FF4C65F72B38908A00F1511D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF4C65F62B38908A00F1511D /* Assets.xcassets */; };
 		FF4C65FA2B38908A00F1511D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF4C65F92B38908A00F1511D /* Preview Assets.xcassets */; };
+		FF4C66012B3890AC00F1511D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C66002B3890AC00F1511D /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		FF4C65F42B38908900F1511D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FF4C65F62B38908A00F1511D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF4C65F92B38908A00F1511D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF4C66002B3890AC00F1511D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				FF4C65F22B38908900F1511D /* NetworkServiceProApp.swift */,
 				FF4C65F42B38908900F1511D /* ContentView.swift */,
+				FF4C66002B3890AC00F1511D /* NetworkService.swift */,
 				FF4C65F62B38908A00F1511D /* Assets.xcassets */,
 				FF4C65F82B38908A00F1511D /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF4C65F52B38908900F1511D /* ContentView.swift in Sources */,
+				FF4C66012B3890AC00F1511D /* NetworkService.swift in Sources */,
 				FF4C65F32B38908900F1511D /* NetworkServiceProApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
