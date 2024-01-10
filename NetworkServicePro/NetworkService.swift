@@ -32,7 +32,7 @@ class NetworkService {
                     error == .nonAuthorized else { throw error }
             
             if tokenRefreshingTask == nil {
-                print("\(path): REFRESHING_INIT")
+                print("\(path) token: REFRESHING_INIT")
                 tokenRefreshingTask = createTokenRefreshingTask(for: path)
             }
             
@@ -42,17 +42,17 @@ class NetworkService {
     
     private func createTokenRefreshingTask(for path: String) -> Task<Void, Error> {
         Task {
-            print("\(path): REFRESHING...")
+            print("\(path) token: REFRESHING...")
             await refreshTokenRequest()
             tokenRefreshingTask = nil
-            print("\(path): REFRESHING_ENDED")
+            print("\(path) token: REFRESHING_ENDED")
             return
         }
     }
     
     private func execute(path: String) async throws -> String {
         print("\(path): EXECUTE_STARTED...")
-        try await ServerForTest.shared.getData()
+        try await ServerForTest.shared.getData(for: path)
         print("\(path): EXECUTE_SUCCESFUL")
         return "ok"
     }
@@ -71,14 +71,20 @@ actor ServerForTest {
     
     private init() {}
     
-    func getData() async throws {
+    func getData(for path: String) async throws {
         guard !isNeedToRefreshToken else { throw NetworkError.nonAuthorized }
-        if !hasThrownNonAuthorizedError && Int.random(in: 0...3) == 0{
+        if !hasThrownNonAuthorizedError && Int.random(in: 0...6) == 0 {
             isNeedToRefreshToken = true
             hasThrownNonAuthorizedError = true
             throw NetworkError.nonAuthorized
         } else {
-            try await Task.sleep(for: .seconds(2))
+            if Thread.current.qualityOfService == .default {
+                print("\(path): GET_DATA_LONG")
+                try await Task.sleep(for: .seconds(10))
+            } else {
+                print("\(path): GET_DATA_NORMAL")
+                try await Task.sleep(for: .seconds(3))
+            }
         }
     }
     

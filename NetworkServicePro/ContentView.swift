@@ -23,8 +23,8 @@ struct ContentView: View {
         .padding()
         .onAppear {
             Task {
-                for i in 0...500 {
-                    let randomInterval = Int.random(in: 1...11)
+                for i in 0...100 {
+                    let randomInterval = Int.random(in: 100...500)
                     let randomPriority = priorities.randomElement()
                     try? await Task.sleep(for: .nanoseconds(randomInterval))
                     Task.detached(priority: randomPriority) {
