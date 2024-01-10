@@ -11,20 +11,20 @@ enum NetworkError: Error {
     case nonAuthorized
 }
 
-
 typealias BearearToken = String
 
-actor TokenRefreshingManager {
+actor TokenService {
     var tokenRefreshingTask: Task<BearearToken, Error>? = nil
     
     init() { }
     
     func createRefreshTokenTask() async {
+        guard tokenRefreshingTask == nil else { return }
         tokenRefreshingTask = Task {
-            print("token: REFRESHING...")
+            print("tokenManager: REFRESHING...")
             let newToken = await refreshTokenRequest()
             tokenRefreshingTask = nil
-            print("token: REFRESHING_ENDED")
+            print("tokenManager: REFRESHING_ENDED")
             return newToken
         }
     }
@@ -35,16 +35,16 @@ actor TokenRefreshingManager {
 }
 
 class NetworkService {
-    var tokenManager = TokenRefreshingManager()
+    var tokenService = TokenService()
     var token: BearearToken?
     
     init() { }
     
     func request(path: String) async throws -> String{
         print("\(path): REQUEST_STARTED")
-        if let tokenRefreshingTask = await tokenManager.tokenRefreshingTask {
+        if let tokenRefreshingTask = await tokenService.tokenRefreshingTask {
             print("\(path): AWAITING_FOR_REFRESHING...")
-            token = try? await tokenRefreshingTask.value
+            token = try! await tokenRefreshingTask.value
         }
         
         do {
@@ -55,9 +55,9 @@ class NetworkService {
             guard let error = error as? NetworkError,
                     error == .nonAuthorized else { throw error }
             
-            if await tokenManager.tokenRefreshingTask == nil {
+            if await tokenService.tokenRefreshingTask == nil {
                 print("\(path) token: REFRESHING_INIT")
-                await tokenManager.createRefreshTokenTask()
+                await tokenService.createRefreshTokenTask()
             }
             
             return try await request(path: path + "/second-entry")
