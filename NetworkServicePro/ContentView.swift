@@ -28,9 +28,9 @@ struct ContentView: View {
                     let randomPriority = priorities.randomElement()
                     try? await Task.sleep(for: .nanoseconds(1000))
                     Task.detached(priority: randomPriority) {
-                        print("\(i): TASK_DETACHED priority: \(Task.currentPriority), interval: \(randomDuration), thread: \(Thread.current)")
-                        let data = try await networkService.request(path: i.description)
-                        print("Some data for \(i): \(data)")
+                        print("'\(i)': TASK_DETACHED priority: \(Task.currentPriority), interval: \(randomDuration), thread: \(Thread.current)")
+                        let data = try await networkService.request(path: "'\(i.description)'")
+                        print("Some data for '\(i)': \(data)")
                     }
                 }
             }
