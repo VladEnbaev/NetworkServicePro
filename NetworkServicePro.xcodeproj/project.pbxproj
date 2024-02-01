@@ -7,20 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF1402E42B571CDF007FB157 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1402E32B571CDF007FB157 /* TokenService.swift */; };
+		FF1402E62B571D49007FB157 /* MocServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1402E52B571D49007FB157 /* MocServer.swift */; };
+		FF36203A2B6BAEEE000FFA14 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3620392B6BAEEE000FFA14 /* NetworkService.swift */; };
 		FF4C65F32B38908900F1511D /* NetworkServiceProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C65F22B38908900F1511D /* NetworkServiceProApp.swift */; };
 		FF4C65F52B38908900F1511D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C65F42B38908900F1511D /* ContentView.swift */; };
 		FF4C65F72B38908A00F1511D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF4C65F62B38908A00F1511D /* Assets.xcassets */; };
 		FF4C65FA2B38908A00F1511D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF4C65F92B38908A00F1511D /* Preview Assets.xcassets */; };
-		FF4C66012B3890AC00F1511D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C66002B3890AC00F1511D /* NetworkService.swift */; };
+		FF4C66012B3890AC00F1511D /* NetworkServiceSimplified.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4C66002B3890AC00F1511D /* NetworkServiceSimplified.swift */; };
+		FF50E5A62B571F48006A4544 /* RequestProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF50E59E2B571F48006A4544 /* RequestProtocols.swift */; };
+		FF50E5A72B571F48006A4544 /* NetworkResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF50E59F2B571F48006A4544 /* NetworkResponses.swift */; };
+		FF50E5A92B571F48006A4544 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF50E5A12B571F48006A4544 /* HTTPMethod.swift */; };
+		FF50E5AA2B571F48006A4544 /* HTTPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF50E5A22B571F48006A4544 /* HTTPStatus.swift */; };
+		FF50E5AB2B571F48006A4544 /* EncoderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF50E5A32B571F48006A4544 /* EncoderUtils.swift */; };
+		FF50E5AC2B571F48006A4544 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF50E5A42B571F48006A4544 /* NetworkServiceError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF1402E32B571CDF007FB157 /* TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
+		FF1402E52B571D49007FB157 /* MocServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocServer.swift; sourceTree = "<group>"; };
+		FF3620392B6BAEEE000FFA14 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		FF4C65EF2B38908900F1511D /* NetworkServicePro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkServicePro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF4C65F22B38908900F1511D /* NetworkServiceProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProApp.swift; sourceTree = "<group>"; };
 		FF4C65F42B38908900F1511D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FF4C65F62B38908A00F1511D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF4C65F92B38908A00F1511D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FF4C66002B3890AC00F1511D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		FF4C66002B3890AC00F1511D /* NetworkServiceSimplified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceSimplified.swift; sourceTree = "<group>"; };
+		FF50E59E2B571F48006A4544 /* RequestProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestProtocols.swift; sourceTree = "<group>"; };
+		FF50E59F2B571F48006A4544 /* NetworkResponses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponses.swift; sourceTree = "<group>"; };
+		FF50E5A12B571F48006A4544 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		FF50E5A22B571F48006A4544 /* HTTPStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStatus.swift; sourceTree = "<group>"; };
+		FF50E5A32B571F48006A4544 /* EncoderUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncoderUtils.swift; sourceTree = "<group>"; };
+		FF50E5A42B571F48006A4544 /* NetworkServiceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +52,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF1402E22B571CC1007FB157 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FF4C65F22B38908900F1511D /* NetworkServiceProApp.swift */,
+				FF4C65F42B38908900F1511D /* ContentView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FF36203B2B6BAF61000FFA14 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FF50E5A32B571F48006A4544 /* EncoderUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		FF4C65E62B38908900F1511D = {
 			isa = PBXGroup;
 			children = (
@@ -53,9 +88,15 @@
 		FF4C65F12B38908900F1511D /* NetworkServicePro */ = {
 			isa = PBXGroup;
 			children = (
-				FF4C65F22B38908900F1511D /* NetworkServiceProApp.swift */,
-				FF4C65F42B38908900F1511D /* ContentView.swift */,
-				FF4C66002B3890AC00F1511D /* NetworkService.swift */,
+				FF50E5AD2B571F64006A4544 /* HTTPConstants */,
+				FF36203B2B6BAF61000FFA14 /* Utils */,
+				FF50E59E2B571F48006A4544 /* RequestProtocols.swift */,
+				FF50E5A42B571F48006A4544 /* NetworkServiceError.swift */,
+				FF50E59F2B571F48006A4544 /* NetworkResponses.swift */,
+				FF3620392B6BAEEE000FFA14 /* NetworkService.swift */,
+				FF1402E32B571CDF007FB157 /* TokenService.swift */,
+				FF50E59C2B571F48006A4544 /* SimplifiedVersion */,
+				FF1402E22B571CC1007FB157 /* App */,
 				FF4C65F62B38908A00F1511D /* Assets.xcassets */,
 				FF4C65F82B38908A00F1511D /* Preview Content */,
 			);
@@ -68,6 +109,24 @@
 				FF4C65F92B38908A00F1511D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FF50E59C2B571F48006A4544 /* SimplifiedVersion */ = {
+			isa = PBXGroup;
+			children = (
+				FF4C66002B3890AC00F1511D /* NetworkServiceSimplified.swift */,
+				FF1402E52B571D49007FB157 /* MocServer.swift */,
+			);
+			path = SimplifiedVersion;
+			sourceTree = "<group>";
+		};
+		FF50E5AD2B571F64006A4544 /* HTTPConstants */ = {
+			isa = PBXGroup;
+			children = (
+				FF50E5A12B571F48006A4544 /* HTTPMethod.swift */,
+				FF50E5A22B571F48006A4544 /* HTTPStatus.swift */,
+			);
+			path = HTTPConstants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +199,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF50E5AB2B571F48006A4544 /* EncoderUtils.swift in Sources */,
+				FF50E5AC2B571F48006A4544 /* NetworkServiceError.swift in Sources */,
 				FF4C65F52B38908900F1511D /* ContentView.swift in Sources */,
-				FF4C66012B3890AC00F1511D /* NetworkService.swift in Sources */,
+				FF50E5A92B571F48006A4544 /* HTTPMethod.swift in Sources */,
+				FF4C66012B3890AC00F1511D /* NetworkServiceSimplified.swift in Sources */,
+				FF1402E62B571D49007FB157 /* MocServer.swift in Sources */,
+				FF1402E42B571CDF007FB157 /* TokenService.swift in Sources */,
+				FF50E5A72B571F48006A4544 /* NetworkResponses.swift in Sources */,
 				FF4C65F32B38908900F1511D /* NetworkServiceProApp.swift in Sources */,
+				FF50E5A62B571F48006A4544 /* RequestProtocols.swift in Sources */,
+				FF36203A2B6BAEEE000FFA14 /* NetworkService.swift in Sources */,
+				FF50E5AA2B571F48006A4544 /* HTTPStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

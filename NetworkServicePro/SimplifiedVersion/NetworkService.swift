@@ -1,7 +1,5 @@
 import Foundation
 
-import Foundation
-
 public typealias Headers = [String: String]
 public typealias QueryParameters = [String: String?]
 public typealias Body = Encodable
@@ -31,7 +29,7 @@ public final class NetworkService: AnyNetworkService {
     // MARK: - Public Methods
     
     public func setBearerToken(_ token: String) {
-        self.tokenService = TokenService(baseURL: baseURL, initialToken: token)
+        self.tokenService = TokenRefreshingService(initialToken: token)
     }
 
     public func request<T: AnyRequestPath>(path: T) async throws -> DataResponse<T.Model> {
@@ -42,7 +40,7 @@ public final class NetworkService: AnyNetworkService {
         switch result.response {
         case .ok, .accepted, .alreadyReported, .created:
             let model = try JSONDecoder().decode(T.Model.self, from: result.data)
-            return DataResponse(model: model, status: result.response)
+			return DataResponse(model: model, status: result.response)
         case .unauthorized:
             if tokenService != nil {
                 await tokenService?.createRefreshTokenTask()
