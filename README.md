@@ -1,4 +1,4 @@
-# Network Service Pro
+# NetworkServicePro
 Network service with convenient requests and automatic token refresh
 
 ### Technologies used:
