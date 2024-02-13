@@ -1,7 +1,5 @@
 import Foundation
 
-import Foundation
-
 public typealias Headers = [String: String]
 public typealias QueryParameters = [String: String?]
 public typealias Body = Encodable
