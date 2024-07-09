@@ -21,6 +21,7 @@ public final class NetworkService: AnyNetworkService {
     
      
     // MARK: - Initialization
+    
     public init(baseURL: URL) {
         self.baseURL = baseURL
         self.session = URLSession(configuration: URLSessionConfiguration.default)
@@ -53,6 +54,7 @@ public final class NetworkService: AnyNetworkService {
         }
     }
 
+    
     // MARK: - Private methods
 
     private func buildRequest(path: some AnyRequestPath) async throws -> URLRequest {
