@@ -3,7 +3,7 @@ import Foundation
 public typealias BearearToken = String
 
 public protocol AnyTokenService: Actor {
-    var token: BearearToken? { get async throws }
+    var accessToken: BearearToken? { get async throws }
     var isRefreshing: Bool { get }
     func createRefreshTokenTask()
 }
@@ -16,12 +16,12 @@ public actor TokenService: AnyTokenService {
     
     // TokenService не может знать актуальность токена.
     // Если ему сказали, что токен не актуален, сервис будет ждать его обновления.
-    public var token: BearearToken? {
+    public var accessToken: BearearToken? {
         get async throws {
             if tokenRefreshingTask != nil {
-                savedToken = try await tokenRefreshingTask!.value
+                refreshToken = try await tokenRefreshingTask!.value
             }
-            return savedToken
+            return refreshToken
         }
     }
     
@@ -33,14 +33,14 @@ public actor TokenService: AnyTokenService {
     //MARK: - Private Properties
     
     private var baseURL: URL
-    private var savedToken: BearearToken?
+    private var refreshToken: BearearToken?
     private var tokenRefreshingTask: Task<BearearToken, Error>? = nil
     
     
     //MARK: - Initialization
     
-    public init(baseURL: URL, initialToken: BearearToken) {
-        self.savedToken = initialToken
+    public init(baseURL: URL, refreshToken: BearearToken) {
+        self.refreshToken = refreshToken
         self.baseURL = baseURL
     }
     
