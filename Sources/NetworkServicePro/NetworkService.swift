@@ -7,7 +7,7 @@ public typealias Body = Encodable
 public protocol AnyNetworkService {
   @discardableResult
   func request<T: Decodable>(endpoint: AnyEndpoint, responseModel: T.Type) async throws -> T
-  func setBearerToken(_ token: String)
+  func setTokens(accessToken: String, refreshToken: String)
 }
 
 public final class NetworkService: AnyNetworkService {
@@ -16,23 +16,21 @@ public final class NetworkService: AnyNetworkService {
   // MARK: - Private Properties
   
   /// Основная сессия
-  private var session: URLSession?
+  private var session: URLSession = URLSession(configuration: URLSessionConfiguration.default)
   
-  /// Токен аутентификации
-  private var bearerToken: String?
+  ///  Сервис, который управляет токенами авторизации
+  private var tokenService: AnyTokenService?
   
   
   // MARK: - Initialization
   
-  public init() {
-    self.session = URLSession(configuration: URLSessionConfiguration.default)
-  }
+  public init() { }
   
   
   // MARK: - Public Methods
   
-  public func setBearerToken(_ token: String) {
-    self.bearerToken = token
+  public func setTokens(accessToken: String, refreshToken: String) {
+    self.tokenService = TokenService(initialAccessToken: accessToken, refreshToken: refreshToken)
   }
   
   public func request<T: Decodable>(endpoint: AnyEndpoint, responseModel: T.Type) async throws -> T {
@@ -44,6 +42,14 @@ public final class NetworkService: AnyNetworkService {
     case 200...299:
       let model = try JSONDecoder().decode(T.self, from: result.data)
       return model
+      
+    case 401:
+      if tokenService != nil {
+        await tokenService?.createRefreshTokenTask()
+        return try await self.request(endpoint: endpoint, responseModel: responseModel)
+      } else {
+        fallthrough
+      }
       
     default:
       throw HTTPError(rawValue: result.response.statusCode) ?? .undefined
@@ -72,8 +78,8 @@ public final class NetworkService: AnyNetworkService {
       }
     }
     
-    if let bearerToken, !bearerToken.isEmpty {
-      let token = "Bearer \(bearerToken)"
+    if let accessToken = try await tokenService?.accessToken, !accessToken.isEmpty {
+      let token = "Bearer \(accessToken)"
       request.setValue(token, forHTTPHeaderField: "Authorization")
     }
     
@@ -97,7 +103,6 @@ public final class NetworkService: AnyNetworkService {
   }
   
   private func execute(request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
-    guard let session else { throw NetworkServiceError.invalidSession }
     try Task.checkCancellation()
     let result: (data: Data, response: URLResponse) = try await session.data(for: request)
     
